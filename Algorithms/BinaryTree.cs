@@ -24,9 +24,7 @@ namespace Algorithms
                     Cell neighbor = neighbors[index];
                     cell.Link(neighbor);
                 }
-
             }
-
             return grid;
         }
     }

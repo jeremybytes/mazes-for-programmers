@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Drawing;
 
 namespace MazeGrid
 {
@@ -111,6 +112,42 @@ namespace MazeGrid
             }
 
             return Output;
+        }
+
+        public Bitmap ToPng(int cellSize = 10)
+        {
+            int imgWidth = cellSize * Columns;
+            int imgHeight = cellSize * Rows;
+
+            Brush background = Brushes.White;
+            Pen wall = Pens.Black;
+
+            Bitmap mazeImage = new Bitmap(imgWidth, imgHeight);
+
+            using (var graphics = Graphics.FromImage(mazeImage))
+            {
+                graphics.FillRectangle(background, 0, 0, imgWidth, imgHeight);
+
+                foreach (var cell in EachCell())
+                {
+                    int x1 = cell.Column * cellSize;
+                    int y1 = cell.Row * cellSize;
+                    int x2 = (cell.Column + 1) * cellSize;
+                    int y2 = (cell.Row + 1) * cellSize;
+
+                    if (cell.North == null)
+                        graphics.DrawLine(wall, x1, y1, x2, y1);
+                    if(cell.West == null)
+                        graphics.DrawLine(wall, x1, y1, x1, y2);
+
+                    if (!cell.IsLinked(cell.East))
+                        graphics.DrawLine(wall, x2, y1, x2, y2);
+                    if (!cell.IsLinked(cell.South))
+                        graphics.DrawLine(wall, x1, y2, x2, y2);
+                }
+            }
+
+            return mazeImage;
         }
 
     }
