@@ -62,5 +62,29 @@ namespace MazeGrid
                 return false;
             return links.ContainsKey(cell);
         }
+
+        public Distances distances()
+        {
+            var distances = new Distances(this);
+            List<Cell> frontier = new List<Cell>() { this };
+
+            while (frontier.Any())
+            {
+                List<Cell> new_frontier = new List<Cell>();
+
+                foreach(var cell in frontier)
+                {
+                    foreach(var linked in cell.Links())
+                    {
+                        if (distances.ContainsKey(linked)) continue;
+                        distances.Add(linked, distances[cell] + 1);
+                        new_frontier.Add(linked);
+                    }
+
+                }
+                frontier = new_frontier;
+            }
+            return distances;
+        }
     }
 }

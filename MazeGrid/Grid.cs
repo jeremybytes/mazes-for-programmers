@@ -80,6 +80,11 @@ namespace MazeGrid
                     yield return cell;
         }
 
+        public virtual string ContentsOf(Cell cell)
+        {
+            return " ";
+        }
+
         public override string ToString()
         {
             string Output = "+";
@@ -96,7 +101,7 @@ namespace MazeGrid
 
                 foreach(var cell in cellRow)
                 {
-                    string body = "   ";
+                    string body = $" {ContentsOf(cell)} ";
                     string eastBoundary = (cell.IsLinked(cell.East) ? " " : "|");
 
                     top += body + eastBoundary;
