@@ -6,7 +6,7 @@ namespace Algorithms
 {
     public class BinaryTree
     {
-        public static Grid CreateMaze(Grid grid)
+        public static T CreateMaze<T>(T grid) where T : Grid
         {
             var rnd = new Random();
 

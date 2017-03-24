@@ -17,9 +17,9 @@ namespace MazeGrid
             this[root] = 0;
         }
 
-        public KeyCollection cells()
+        public List<Cell> cells()
         {
-            return this.Keys;
+            return this.Keys.ToList();
         }
 
         public void SetDistance(Cell cell, int distance)
@@ -28,6 +28,31 @@ namespace MazeGrid
                 this.Add(cell, distance);
             else
                 this[cell] = distance;
+        }
+
+        public Distances PathTo(Cell goal)
+        {
+            Cell current = goal;
+
+            var breadcrumbs = new Distances(root);
+            breadcrumbs[current] = this[current];
+
+            while (current != root)
+            {
+                foreach(var neighbor in current.Links())
+                {
+                    if(this[neighbor] < this[current])
+                    {
+                        if (!breadcrumbs.ContainsKey(neighbor))
+                            breadcrumbs.Add(neighbor, this[neighbor]);
+                        else
+                            breadcrumbs[neighbor] = this[neighbor];
+                        current = neighbor;
+                        break;
+                    }
+                }
+            }
+            return breadcrumbs;
         }
     }
 }

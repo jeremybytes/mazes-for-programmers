@@ -15,11 +15,11 @@ namespace DrawMaze
         static void Main(string[] args)
         {
             var grid = new DistanceGrid(15, 15);
-            var maze = Sidewinder.CreateMaze(grid);
+            var maze = BinaryTree.CreateMaze(grid);
 
             var start = maze.GetCell(0, 0);
             var distances = start.distances();
-            maze.distances = distances;
+            maze.distances = distances.PathTo(grid.GetCell(grid.Rows-1, 0));
 
             Console.WriteLine(maze);
 
