@@ -18,7 +18,7 @@ namespace MazeGrid
             if (distances!= null &&
                 distances.ContainsKey(cell))
             {
-                return distances[cell].ToString("X");
+                return distances[cell].ToString().Last().ToString();
             }
             {
                 return " ";

@@ -14,7 +14,7 @@ namespace DrawMaze
     {
         static void Main(string[] args)
         {
-            var grid = new DistanceGrid(8, 8);
+            var grid = new DistanceGrid(15, 15);
             var maze = Sidewinder.CreateMaze(grid);
 
             var start = maze.GetCell(0, 0);
