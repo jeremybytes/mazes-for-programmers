@@ -23,7 +23,8 @@ namespace DrawMaze
 
             // Choose maze algorithm
             // var maze = Sidewinder.CreateMaze(grid);
-            var maze = BinaryTree.CreateMaze(grid);
+            // var maze = BinaryTree.CreateMaze(grid);
+             var maze = AldousBroder.CreateMaze(grid);
 
             // Locate "start" cell in the center (for distances)
             var start = maze.GetCell(grid.Rows/2, grid.Columns/2);

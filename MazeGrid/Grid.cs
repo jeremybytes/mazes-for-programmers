@@ -8,6 +8,7 @@ namespace MazeGrid
     {
         public int Rows { get; private set; }
         public int Columns { get; private set; }
+        public int Size { get; private set; }
         public Cell[][] Cells { get; private set; }
 
         protected bool includeBackgrounds = false;
@@ -18,6 +19,7 @@ namespace MazeGrid
         {
             Rows = rows;
             Columns = columns;
+            Size = Rows * Columns;
 
             PrepareGrid();
             ConfigureCells();
