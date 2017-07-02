@@ -42,6 +42,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Cell.cs" />
+    <Compile Include="ColoredDistanceGrid.cs" />
+    <Compile Include="ColoredGrid.cs" />
     <Compile Include="DistanceGrid.cs" />
     <Compile Include="Distances.cs" />
     <Compile Include="Grid.cs" />

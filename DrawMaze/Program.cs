@@ -14,14 +14,15 @@ namespace DrawMaze
     {
         static void Main(string[] args)
         {
-            var grid = new DistanceGrid(15, 15);
-            var maze = BinaryTree.CreateMaze(grid);
+            var grid = new ColoredDistanceGrid(15, 15);
+            var maze = Sidewinder.CreateMaze(grid);
 
-            var start = maze.GetCell(0, 0);
-            var distances = start.distances();
-            maze.distances = distances.PathTo(grid.GetCell(grid.Rows-1, 0));
+            var start = maze.GetCell(grid.Rows/2, grid.Columns/2);
+            maze.distances = start.distances().PathTo(grid.GetCell(grid.Rows - 1, 0));
 
             Console.WriteLine(maze);
+
+            maze.distances = start.distances();
 
             Bitmap img = maze.ToPng(30);
             img.Save("maze.png");

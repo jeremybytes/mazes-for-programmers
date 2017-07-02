@@ -10,6 +10,8 @@ namespace MazeGrid
         public int Columns { get; private set; }
         public Cell[][] Cells { get; private set; }
 
+        protected bool includeBackgrounds = false;
+
         private Random rnd = new Random();
 
         public Grid(int rows, int columns)
@@ -85,6 +87,11 @@ namespace MazeGrid
             return " ";
         }
 
+        public virtual Color BackgroundColorFor(Cell cell)
+        {
+            return Color.White;
+        }
+
         public override string ToString()
         {
             string Output = "+";
@@ -94,12 +101,12 @@ namespace MazeGrid
             }
             Output += "\n";
 
-            foreach(var cellRow in EachRow())
+            foreach (var cellRow in EachRow())
             {
                 string top = "|";
                 string bottom = "+";
 
-                foreach(var cell in cellRow)
+                foreach (var cell in cellRow)
                 {
                     string body = $" {ContentsOf(cell)} ";
                     string eastBoundary = (cell.IsLinked(cell.East) ? " " : "|");
@@ -133,6 +140,19 @@ namespace MazeGrid
             {
                 graphics.FillRectangle(background, 0, 0, imgWidth, imgHeight);
 
+                if (includeBackgrounds)
+                    foreach (var cell in EachCell())
+                    {
+                        int x1 = cell.Column * cellSize;
+                        int y1 = cell.Row * cellSize;
+                        int x2 = (cell.Column + 1) * cellSize;
+                        int y2 = (cell.Row + 1) * cellSize;
+
+                        Color color = BackgroundColorFor(cell);
+                        Brush brush = new SolidBrush(color);
+                        graphics.FillRectangle(brush, x1, y1, (x2 - x1), (y2 - y1));
+                    }
+
                 foreach (var cell in EachCell())
                 {
                     int x1 = cell.Column * cellSize;
@@ -142,9 +162,8 @@ namespace MazeGrid
 
                     if (cell.North == null)
                         graphics.DrawLine(wall, x1, y1, x2, y1);
-                    if(cell.West == null)
+                    if (cell.West == null)
                         graphics.DrawLine(wall, x1, y1, x1, y2);
-
                     if (!cell.IsLinked(cell.East))
                         graphics.DrawLine(wall, x2, y1, x2, y2);
                     if (!cell.IsLinked(cell.South))
