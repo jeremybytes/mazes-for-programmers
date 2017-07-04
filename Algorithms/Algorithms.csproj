@@ -42,7 +42,9 @@
   <ItemGroup>
     <Compile Include="AldousBroder.cs" />
     <Compile Include="BinaryTree.cs" />
+    <Compile Include="HuntAndKill.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="RecursiveBacktracker.cs" />
     <Compile Include="Sidewinder.cs" />
   </ItemGroup>
   <ItemGroup>

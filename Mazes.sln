@@ -1,13 +1,15 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
-VisualStudioVersion = 15.0.26228.9
+VisualStudioVersion = 15.0.26403.7
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MazeGrid", "MazeGrid\MazeGrid.csproj", "{0DA3672F-1100-425C-AFE5-98E068EE1C69}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Algorithms", "Algorithms\Algorithms.csproj", "{266BD934-DCC4-4A22-A3DF-C4E77E693733}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DrawMaze", "DrawMaze\DrawMaze.csproj", "{CC0D9784-6278-4ADB-8874-EF251DF0E4C7}"
+EndProject
+Project("{F2A71F9B-5D33-465A-A702-920D77279786}") = "Functions", "Functions\Functions.fsproj", "{3BE912FB-47D8-4EB3-A4DC-865A94F19F50}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -27,6 +29,10 @@ Global
 		{CC0D9784-6278-4ADB-8874-EF251DF0E4C7}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{CC0D9784-6278-4ADB-8874-EF251DF0E4C7}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{CC0D9784-6278-4ADB-8874-EF251DF0E4C7}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3BE912FB-47D8-4EB3-A4DC-865A94F19F50}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3BE912FB-47D8-4EB3-A4DC-865A94F19F50}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3BE912FB-47D8-4EB3-A4DC-865A94F19F50}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3BE912FB-47D8-4EB3-A4DC-865A94F19F50}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

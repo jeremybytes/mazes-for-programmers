@@ -14,17 +14,18 @@ namespace DrawMaze
     {
         static void Main(string[] args)
         {
-            // Choose grid. Colored Distance grid can do both heat map (colors)
-            // and path (numbers)
-            var grid = new ColoredDistanceGrid(15, 15);
-            //var grid = new Grid(15, 15);
-            //var grid = new DistanceGrid(15, 15);
-            //var grid = new ColoredGrid(15, 15);
+            // Choose grid
+            //var grid = new Grid(15, 15); // plain grid, no annotations
+            //var grid = new DistanceGrid(15, 15); // "path" on text grid
+            //var grid = new ColoredGrid(15, 15); // heat-map on graphical grid
+            var grid = new ColoredDistanceGrid(15, 15); // "path" and heat-map
 
             // Choose maze algorithm
-            // var maze = Sidewinder.CreateMaze(grid);
-            // var maze = BinaryTree.CreateMaze(grid);
-             var maze = AldousBroder.CreateMaze(grid);
+            // var maze = Sidewinder.CreateMaze(grid); // vertical bias
+            // var maze = BinaryTree.CreateMaze(grid); // diagonal bias
+            // var maze = AldousBroder.CreateMaze(grid); // non-biases (slow)
+            // var maze = HuntAndKill.CreateMaze(grid); // some bias (twistier paths)
+            var maze = RecursiveBacktracker.CreateMaze(grid); // some bias (longer paths)
 
             // Locate "start" cell in the center (for distances)
             var start = maze.GetCell(grid.Rows/2, grid.Columns/2);
