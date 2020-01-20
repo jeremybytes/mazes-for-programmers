@@ -1,7 +1,8 @@
 # mazes-for-programmers
 Coding along with "Mazes for Programmers" by Jamis Buck
 
-Initial versions are in C#. Hoping to add F# code a bit later after I've got a good handle on the problem space.
+Updates:  
+**Jan 2020**: Moved code to .NET Core and added a web interface. Running the "MazeWeb" project provides a parameterized way to generate mazes. Graphical mazes are shown in the browser. An article about this project is coming soon.
 
 Articles: 
 * [Approaching Functional Programming Completely Wrong](https://jeremybytes.blogspot.com/2017/03/approaching-function-programming.html)
