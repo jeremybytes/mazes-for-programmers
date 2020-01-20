@@ -63,7 +63,7 @@ namespace MazeGrid
             return links.ContainsKey(cell);
         }
 
-        public Distances distances()
+        public Distances GetDistances()
         {
             var distances = new Distances(this);
             List<Cell> frontier = new List<Cell>() { this };

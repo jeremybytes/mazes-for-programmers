@@ -7,9 +7,9 @@ using System.Threading.Tasks;
 
 namespace Algorithms
 {
-    public class AldousBroder
+    public class AldousBroder : IMazeAlgorithm
     {
-        public static T CreateMaze<T>(T grid) where T : Grid
+        public void CreateMaze(Grid grid)
         {
             var rnd = new Random();
 
@@ -28,8 +28,6 @@ namespace Algorithms
                 }
                 cell = neighbor;
             }
-            return grid;
         }
-
     }
 }

@@ -4,9 +4,9 @@ using System.Collections.Generic;
 
 namespace Algorithms
 {
-    public class BinaryTree
+    public class BinaryTree : IMazeAlgorithm
     {
-        public static T CreateMaze<T>(T grid) where T : Grid
+        public void CreateMaze(Grid grid)
         {
             var rnd = new Random();
 
@@ -25,7 +25,6 @@ namespace Algorithms
                     cell.Link(neighbor);
                 }
             }
-            return grid;
         }
     }
 }

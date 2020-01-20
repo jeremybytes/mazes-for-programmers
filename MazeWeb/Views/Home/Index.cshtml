@@ -1,0 +1,38 @@
+﻿@model MazeWeb.Models.MazeModel
+
+@{
+    ViewData["Title"] = "Home Page";
+}
+
+<div class="text-center">
+    <h1 class="display-4">Welcome</h1>
+    <form action="/maze" method="post">
+        <p>
+            Size: <br />
+            @Html.TextBoxFor(m => m.Size, new { @Value = "30" })
+        </p>
+        <p>
+            Color: <br />
+            @Html.DropDownListFor(m => m.Color, new List<SelectListItem>
+                   { new SelectListItem{Text="No Color", Value="White"},
+                     new SelectListItem{Text="Teal", Value="Teal"},
+                     new SelectListItem{Text="Purple", Value="Purple"},
+                     new SelectListItem{Text="Mustard", Value="Mustard"},
+                     new SelectListItem{Text="Rust", Value="Rust"},
+                     new SelectListItem{Text="Green", Value="Green"},
+                     new SelectListItem{Text="Blue", Value="Blue"}}, "Please select")
+        </p>
+        <p>
+            Algoritm: <br />
+            @Html.DropDownListFor(m => m.Algo, new List<SelectListItem>
+                   {
+                     new SelectListItem{Text="Aldous-Broder", Value="AldousBroder"},
+                     new SelectListItem{Text="Binary Tree", Value="BinaryTree"},
+                     new SelectListItem{Text="Hunt and Kill", Value="HuntAndKill"},
+                     new SelectListItem{Text="Recursive Backtracker", Value="RecursiveBacktracker"},
+                     new SelectListItem{Text="Sidewinder", Value="Sidewinder"},
+                   }, "Please select")
+        </p>
+        <input type="submit" value="Generate Maze" />
+    </form>
+</div>

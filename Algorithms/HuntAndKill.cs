@@ -7,9 +7,9 @@ using System.Threading.Tasks;
 
 namespace Algorithms
 {
-    public class HuntAndKill
+    public class HuntAndKill : IMazeAlgorithm
     {
-        public static T CreateMaze<T>(T grid) where T : Grid
+        public void CreateMaze(Grid grid)
         {
             var rnd = new Random();
             Cell current = grid.RandomCell();
@@ -44,8 +44,6 @@ namespace Algorithms
                     }
                 }
             }
-
-            return grid;
         }
     }
 }

@@ -7,9 +7,9 @@ using System.Threading.Tasks;
 
 namespace Algorithms
 {
-    public class RecursiveBacktracker
+    public class RecursiveBacktracker : IMazeAlgorithm
     {
-        public static T CreateMaze<T>(T grid) where T : Grid
+        public void CreateMaze(Grid grid)
         {
             var rnd = new Random();
             var stack = new Stack<Cell>();
@@ -32,8 +32,6 @@ namespace Algorithms
                     stack.Push(neighbor);
                 }
             }
-
-            return grid;
         }
     }
 }

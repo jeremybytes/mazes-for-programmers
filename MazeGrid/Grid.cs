@@ -4,12 +4,15 @@ using System.Drawing;
 
 namespace MazeGrid
 {
-    public class Grid
+    public abstract class Grid
     {
         public int Rows { get; private set; }
         public int Columns { get; private set; }
         public int Size { get; private set; }
         public Cell[][] Cells { get; private set; }
+
+        public abstract Distances distances { get; set; }
+        public abstract Distances path { get; set; }
 
         protected bool includeBackgrounds = false;
 
@@ -96,6 +99,11 @@ namespace MazeGrid
 
         public override string ToString()
         {
+            if (this.Columns > 20 || this.Rows > 20)
+            {
+                return "Grid is too large for text output";
+            }
+
             string Output = "+";
             for (int i = 0; i < this.Columns; i++)
             {

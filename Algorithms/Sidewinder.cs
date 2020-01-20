@@ -7,9 +7,9 @@ using System.Threading.Tasks;
 
 namespace Algorithms
 {
-    public class Sidewinder
+    public class Sidewinder : IMazeAlgorithm
     {
-        public static T CreateMaze<T>(T grid) where T: Grid
+        public void CreateMaze(Grid grid)
         {
             var rnd = new Random();
 
@@ -43,8 +43,6 @@ namespace Algorithms
                     }
                 }
             }
-
-            return grid;
         }
     }
 }
