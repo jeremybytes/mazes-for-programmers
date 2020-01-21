@@ -3,6 +3,7 @@ using MazeGeneration;
 using MazeGrid;
 using System;
 using System.Diagnostics;
+using System.Drawing.Imaging;
 
 namespace DrawMaze
 {
@@ -27,7 +28,7 @@ namespace DrawMaze
             Console.WriteLine(textMaze);
 
             var graphicMaze = generator.GetGraphicalMaze(true);
-            graphicMaze.Save("maze.png");
+            graphicMaze.Save("maze.png", ImageFormat.Png);
             Process p = new Process();
             p.StartInfo.UseShellExecute = true;
             p.StartInfo.FileName = "maze.png";

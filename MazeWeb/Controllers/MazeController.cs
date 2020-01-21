@@ -32,7 +32,7 @@ namespace MazeWeb.Controllers
 
             Bitmap mazeImage = Generate(mazeSize, algorithm, color);
             byte[] byteArray = ConvertToByteArray(mazeImage);
-            return File(byteArray, "image/jpeg");
+            return File(byteArray, "image/png");
         }
 
         public static byte[] ConvertToByteArray(Image img)
