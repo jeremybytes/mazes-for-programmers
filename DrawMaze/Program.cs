@@ -12,7 +12,7 @@ namespace DrawMaze
         {
             IMazeGenerator generator =
                 new MazeGenerator(
-                    new ColorGrid(150, 150),
+                    new ColorGrid(20, 20),
                     new RecursiveBacktracker());
 
             CreateAndShowMaze(generator);
