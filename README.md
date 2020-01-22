@@ -14,4 +14,5 @@ Building the Mazes:
 * [Converting .NET Framework to .NET Core - UseShellExecute has a Different Default Value](https://jeremybytes.blogspot.com/2019/08/converting-net-framework-to-net-core.html)  
 
 Web Application:
-* [Generating Mazes in a Browser](https://jeremybytes.blogspot.com/2020/01/generating-mazes-in-browser.html)
+* [Generating Mazes in a Browser](https://jeremybytes.blogspot.com/2020/01/generating-mazes-in-browser.html)  
+* [Building a Web Front-End to Show Mazes in ASP.NET Core MVC](https://jeremybytes.blogspot.com/2020/01/building-web-front-end-to-show-mazes-in.html)
