@@ -5,6 +5,7 @@ Updates:
 **July 2022**   
 * Upgraded code to .NET 6.0.  
 * Changed from using System.Drawing to ImageSharp package. This takes care of the cross-platform issues noted below (GDI+ is no longer required (which is good because GDI+ is not supported in .NET 6 for non-Windows platforms).)  
+* Addes scaling for output images. Smaller grids have larger cells; larger grids have smaller cells. This makes the image generation faster for larger grids.
 
 **Jan 2020**: 
 * Moved code to .NET Core and added a web interface. 
