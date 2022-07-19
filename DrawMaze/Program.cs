@@ -1,39 +1,54 @@
 ﻿using Algorithms;
 using MazeGeneration;
 using MazeGrid;
-using System;
+using SixLabors.ImageSharp;
 using System.Diagnostics;
-using System.Drawing;
-using System.Drawing.Imaging;
+using Ninject;
 
-namespace DrawMaze
+namespace DrawMaze;
+
+class Program
 {
-    class Program
+    static void Main(string[] args)
     {
-        static void Main(string[] args)
-        {
-            IMazeGenerator generator =
-                new MazeGenerator(
-                    new ColorGrid(20, 20),
-                    new RecursiveBacktracker());
+        // Manual composition
+        //IMazeGenerator generator =
+        //    new ConsoleLoggingDecorator(
+        //        new MazeGenerator(
+        //            new ColorGrid(15, 15),
+        //            new HuntAndKill())
+        //    );
 
-            CreateAndShowMaze(generator);
-            Console.ReadLine();
-        }
+        // Ninject DI container
+        IKernel container = new StandardKernel();
+        container.Bind<Grid>().ToMethod(c => new ColorGrid(50, 50));
+        container.Bind<IMazeAlgorithm>().To<HuntAndKill>();
+        container.Bind<IMazeGenerator>().To<ConsoleLoggingDecorator>()
+            .WithConstructorArgument<IMazeGenerator>(container.Get<MazeGenerator>());
 
-        private static void CreateAndShowMaze(IMazeGenerator generator)
-        {
-            generator.GenerateMaze();
+        IMazeGenerator generator = container.Get<IMazeGenerator>();
 
-            string textMaze = generator.GetTextMaze(true);
-            Console.WriteLine(textMaze);
+        CreateAndShowMaze(generator);
+        Console.ReadLine();
+    }
 
-            Bitmap graphicMaze = generator.GetGraphicalMaze(true);
-            graphicMaze.Save("maze.png", ImageFormat.Png);
-            Process p = new Process();
-            p.StartInfo.UseShellExecute = true;
-            p.StartInfo.FileName = "maze.png";
-            p.Start();
-        }
+    private static void CreateAndShowMaze(IMazeGenerator generator)
+    {
+        generator.GenerateMaze();
+
+        var textMaze = generator.GetTextMaze(true);
+        Console.WriteLine(textMaze);
+
+        var graphicMaze = generator.GetGraphicalMaze(true);
+        graphicMaze.SaveAsPng("maze.png");
+
+        // This code is Windows-only
+        // Comment out the following if building on macOS or Linux
+        // The "maze.png" file can be located in the output
+        // folder: [solutionlocation]/DrawMaze/bin/Debug/net6.0/
+        Process p = new Process();
+        p.StartInfo.UseShellExecute = true;
+        p.StartInfo.FileName = "maze.png";
+        p.Start();
     }
 }

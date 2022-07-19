@@ -1,58 +1,51 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿namespace MazeGrid;
 
-namespace MazeGrid
+public class Distances : Dictionary<Cell, int>
 {
-    public class Distances : Dictionary<Cell, int>
+    Cell root;
+
+    public Distances(Cell root)
+        : base()
     {
-        Cell root;
+        this.root = root;
+        this[root] = 0;
+    }
 
-        public Distances(Cell root)
-            : base()
+    public List<Cell> cells()
+    {
+        return this.Keys.ToList();
+    }
+
+    public void SetDistance(Cell cell, int distance)
+    {
+        if (!this.ContainsKey(cell))
+            this.Add(cell, distance);
+        else
+            this[cell] = distance;
+    }
+
+    public Distances PathTo(Cell goal)
+    {
+        Cell current = goal;
+
+        var breadcrumbs = new Distances(root);
+        breadcrumbs[current] = this[current];
+
+        while (current != root)
         {
-            this.root = root;
-            this[root] = 0;
-        }
-
-        public List<Cell> cells()
-        {
-            return this.Keys.ToList();
-        }
-
-        public void SetDistance(Cell cell, int distance)
-        {
-            if (!this.ContainsKey(cell))
-                this.Add(cell, distance);
-            else
-                this[cell] = distance;
-        }
-
-        public Distances PathTo(Cell goal)
-        {
-            Cell current = goal;
-
-            var breadcrumbs = new Distances(root);
-            breadcrumbs[current] = this[current];
-
-            while (current != root)
+            foreach(var neighbor in current.Links())
             {
-                foreach(var neighbor in current.Links())
+                if(this[neighbor] < this[current])
                 {
-                    if(this[neighbor] < this[current])
-                    {
-                        if (!breadcrumbs.ContainsKey(neighbor))
-                            breadcrumbs.Add(neighbor, this[neighbor]);
-                        else
-                            breadcrumbs[neighbor] = this[neighbor];
-                        current = neighbor;
-                        break;
-                    }
+                    if (!breadcrumbs.ContainsKey(neighbor))
+                        breadcrumbs.Add(neighbor, this[neighbor]);
+                    else
+                        breadcrumbs[neighbor] = this[neighbor];
+                    current = neighbor;
+                    break;
                 }
             }
-            return breadcrumbs;
         }
+        return breadcrumbs;
     }
 }

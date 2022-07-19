@@ -1,52 +1,62 @@
 ﻿using Algorithms;
 using MazeGrid;
-using System.Drawing;
+using SixLabors.ImageSharp;
 
-namespace MazeGeneration
+namespace MazeGeneration;
+
+public class MazeGenerator : IMazeGenerator
 {
-    public class MazeGenerator : IMazeGenerator
+    private readonly Grid mazeGrid;
+    private readonly IMazeAlgorithm algorithm;
+    private bool isGenerated = false;
+
+    public MazeGenerator(Grid grid, IMazeAlgorithm algorithm)
     {
-        private readonly Grid mazeGrid;
-        private readonly IMazeAlgorithm algorithm;
-        private bool isGenerated = false;
+        this.mazeGrid = grid;
+        this.algorithm = algorithm;
+    }
 
-        public MazeGenerator(Grid grid, IMazeAlgorithm algorithm)
+    public void GenerateMaze()
+    {
+        algorithm?.CreateMaze(mazeGrid);
+        isGenerated = true;
+    }
+
+    public string GetTextMaze(bool includePath = false)
+    {
+        if (!isGenerated)
+            GenerateMaze();
+
+        if (includePath)
         {
-            this.mazeGrid = grid;
-            this.algorithm = algorithm;
+            Cell start = mazeGrid.GetCell(mazeGrid.Rows / 2, mazeGrid.Columns / 2);
+            mazeGrid.path = start.GetDistances().PathTo(mazeGrid.GetCell(mazeGrid.Rows - 1, 0));
         }
 
-        public void GenerateMaze()
+        return mazeGrid.ToString();
+    }
+
+    public Image GetGraphicalMaze(bool includeHeatMap = false)
+    {
+        if (!isGenerated)
+            GenerateMaze();
+
+        if (includeHeatMap)
         {
-            algorithm?.CreateMaze(mazeGrid);
-            isGenerated = true;
+            Cell start = mazeGrid.GetCell(mazeGrid.Rows / 2, mazeGrid.Columns / 2);
+            mazeGrid.distances = start.GetDistances();
         }
 
-        public string GetTextMaze(bool includePath = false)
+        switch (mazeGrid.Size)
         {
-            if (!isGenerated)
-                GenerateMaze();
-
-            if (includePath)
-            {
-                Cell start = mazeGrid.GetCell(mazeGrid.Rows / 2, mazeGrid.Columns / 2);
-                mazeGrid.path = start.GetDistances().PathTo(mazeGrid.GetCell(mazeGrid.Rows - 1, 0));
-            }
-
-            return mazeGrid.ToString();
-        }
-
-        public Bitmap GetGraphicalMaze(bool includeHeatMap = false)
-        {
-            if (!isGenerated)
-                GenerateMaze();
-
-            if (includeHeatMap)
-            {
-                Cell start = mazeGrid.GetCell(mazeGrid.Rows / 2, mazeGrid.Columns / 2);
-                mazeGrid.distances = start.GetDistances();
-            }
-            return mazeGrid.ToPng(30);
+            case int i when (i < 15000):
+                return mazeGrid.ToPng(30);
+            case int i when (i >= 15000 && i < 60000):
+                return mazeGrid.ToPng(20);
+            case int i when (i >= 60000):
+                return mazeGrid.ToPng(10);
+            default:
+                return mazeGrid.ToPng(30);
         }
     }
 }

@@ -1,29 +1,26 @@
 ﻿using MazeGrid;
-using System;
-using System.Collections.Generic;
 
-namespace Algorithms
+namespace Algorithms;
+
+public class BinaryTree : IMazeAlgorithm
 {
-    public class BinaryTree : IMazeAlgorithm
+    public void CreateMaze(Grid grid)
     {
-        public void CreateMaze(Grid grid)
+        var rnd = new Random();
+
+        foreach (var cell in grid.EachCell())
         {
-            var rnd = new Random();
+            var neighbors = new List<Cell>();
+            if (cell.North != null)
+                neighbors.Add(cell.North);
+            if (cell.East != null)
+                neighbors.Add(cell.East);
 
-            foreach (var cell in grid.EachCell())
+            int index = rnd.Next(neighbors.Count);
+            if (index < neighbors.Count)
             {
-                var neighbors = new List<Cell>();
-                if (cell.North != null)
-                    neighbors.Add(cell.North);
-                if (cell.East != null)
-                    neighbors.Add(cell.East);
-
-                int index = rnd.Next(neighbors.Count);
-                if (index < neighbors.Count)
-                {
-                    Cell neighbor = neighbors[index];
-                    cell.Link(neighbor);
-                }
+                Cell neighbor = neighbors[index];
+                cell.Link(neighbor);
             }
         }
     }

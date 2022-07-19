@@ -1,9 +1,8 @@
 ﻿using MazeGrid;
 
-namespace Algorithms
+namespace Algorithms;
+
+public interface IMazeAlgorithm
 {
-    public interface IMazeAlgorithm
-    {
-        void CreateMaze(Grid grid);
-    }
+    void CreateMaze(Grid grid);
 }

@@ -1,60 +1,78 @@
 ﻿using Algorithms;
-using MazeGeneration;
 using MazeGrid;
 using Microsoft.AspNetCore.Mvc;
-using System;
-using System.Drawing;
-using System.IO;
 using System.Reflection;
+using SixLabors.ImageSharp;
+using MazeGeneration;
 
-namespace MazeWeb.Controllers
+namespace maze_web.Controllers;
+
+public class MazeController : Controller
 {
-    public class MazeController : Controller
+    private readonly ILogger<MazeController> _logger;
+
+    public MazeController(ILogger<MazeController> logger)
     {
-        public IActionResult Index(int size, string algo, MazeColor color)
+        _logger = logger;
+    }
+
+    public IActionResult Index(int size, string algo, MazeColor color)
+    {
+        // return Content($"{size}, {algo}, {color}");
+
+        int mazeSize = GetSize(size);
+        IMazeAlgorithm algorithm = GetAlgorithm(algo);
+        Image mazeImage = Generate(mazeSize, algorithm, color);
+        byte[] byteArray = ConvertToByteArray(mazeImage);
+        return File(byteArray, "image/png");
+    }
+
+    public int GetSize(int size)
+    {
+        int mazeSize = 15;
+        if (size > 0)
         {
-            int mazeSize = 15;
-            if (size > 0)
-            {
-                mazeSize = size;
-            }
-
-            IMazeAlgorithm algorithm = new RecursiveBacktracker();
-            if (!string.IsNullOrEmpty(algo))
-            {
-                Assembly assembly = Assembly.GetAssembly(typeof(RecursiveBacktracker));
-                Type algoType = assembly.GetType($"Algorithms.{algo}", false, true);
-                if (algoType != null)
-                {
-                    algorithm = Activator.CreateInstance(algoType) as IMazeAlgorithm;
-                }
-            }
-
-            Bitmap mazeImage = Generate(mazeSize, algorithm, color);
-            byte[] byteArray = ConvertToByteArray(mazeImage);
-            return File(byteArray, "image/png");
+            mazeSize = size;
         }
+        return mazeSize;
+    }
 
-        public static byte[] ConvertToByteArray(Image img)
+    public IMazeAlgorithm GetAlgorithm(string algo)
+    {
+        IMazeAlgorithm? algorithm = new RecursiveBacktracker();
+        if (!string.IsNullOrEmpty(algo))
         {
-            using (var stream = new MemoryStream())
+            Assembly? assembly = Assembly.GetAssembly(typeof(RecursiveBacktracker));
+            Type? algoType = assembly?.GetType($"maze_library.{algo}", false, true);
+            if (algoType != null)
             {
-                img.Save(stream, System.Drawing.Imaging.ImageFormat.Png);
-                return stream.ToArray();
+                algorithm = Activator.CreateInstance(algoType) as IMazeAlgorithm;
             }
         }
+        return algorithm!;
+    }
 
-        public Bitmap Generate(int mazeSize, IMazeAlgorithm algorithm, MazeColor color)
-        {
-            IMazeGenerator generator =
-                new MazeGenerator(
-                    new ColorGrid(mazeSize, mazeSize, color),
-                    algorithm);
+    public Image Generate(int mazeSize, IMazeAlgorithm algorithm, MazeColor color)
+    {
+        IMazeGenerator generator =
+            new MazeGenerator(
+                new ColorGrid(mazeSize, mazeSize, color),
+                algorithm);
 
-            generator.GenerateMaze();
+        _logger.LogDebug($"{DateTime.Now:G} - Starting maze generation");
+        generator.GenerateMaze();
+        _logger.LogDebug($"{DateTime.Now:G} - Ending maze generation");
 
-            return generator.GetGraphicalMaze(true);
-        }
+        _logger.LogDebug($"{DateTime.Now:G} - Starting image generation");
+        Image maze = generator.GetGraphicalMaze(true);
+        _logger.LogDebug($"{DateTime.Now:G} - Ending image generation");
+        return maze;
+    }
 
+    public static byte[] ConvertToByteArray(Image img)
+    {
+        using var stream = new MemoryStream();
+        img.SaveAsPng(stream);
+        return stream.ToArray();
     }
 }

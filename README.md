@@ -2,11 +2,18 @@
 Coding along with "Mazes for Programmers" by Jamis Buck
 
 Updates:  
-**Jan 2020**: Moved code to .NET Core and added a web interface. Running the "MazeWeb" project provides a parameterized way to generate mazes. Graphical mazes are shown in the browser. An article about this project is coming soon.
+**July 2022**   
+* Upgraded code to .NET 6.0.  
+* Changed from using System.Drawing to ImageSharp package. This takes care of the cross-platform issues noted below (GDI+ is no longer required (which is good because GDI+ is not supported in .NET 6 for non-Windows platforms).)  
+
+**Jan 2020**: 
+* Moved code to .NET Core and added a web interface. 
+* Running the "MazeWeb" project provides a parameterized way to generate mazes. Graphical mazes are shown in the browser.
 
 **Cross-Platform Note**:  
-This project uses GDI+. If you're running on macOS or Linux and you get a GDI+ error, just follow the advice in this article: [SOLVED: System.Drawing .NETCore on Mac, GDIPlus Exception](https://medium.com/@hudsonmendes/solved-system-drawing-netcore-on-mac-gdiplus-exception-c455ab3655a2)  
+~~This project uses GDI+. If you're running on macOS or Linux and you get a GDI+ error, just follow the advice in this article: [SOLVED: System.Drawing .NETCore on Mac, GDIPlus Exception](https://medium.com/@hudsonmendes/solved-system-drawing-netcore-on-mac-gdiplus-exception-c455ab3655a2)~~  
 
+**Articles**  
 Building the Mazes: 
 * [Approaching Functional Programming Completely Wrong](https://jeremybytes.blogspot.com/2017/03/approaching-function-programming.html)
 * [More Maze Programming: Heat Map](https://jeremybytes.blogspot.com/2017/07/more-maze-programming-heat-map.html)

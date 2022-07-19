@@ -1,46 +1,40 @@
 ﻿using MazeGrid;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
-namespace Algorithms
+namespace Algorithms;
+
+public class HuntAndKill : IMazeAlgorithm
 {
-    public class HuntAndKill : IMazeAlgorithm
+    public void CreateMaze(Grid grid)
     {
-        public void CreateMaze(Grid grid)
+        var rnd = new Random();
+        Cell? current = grid.RandomCell();
+
+        while (current != null)
         {
-            var rnd = new Random();
-            Cell current = grid.RandomCell();
+            List<Cell> unvisited_neighbors = current.Neighbors.Where(c => c.Links().Count == 0).ToList();
 
-            while (current != null)
+            if (unvisited_neighbors.Any())
             {
-                List<Cell> unvisited_neighbors = current.Neighbors.Where(c => c.Links().Count == 0).ToList();
+                int index = rnd.Next(unvisited_neighbors.Count);
+                Cell neighbor = unvisited_neighbors[index];
+                current.Link(neighbor);
+                current = neighbor;
+            }
+            else
+            {
+                current = null;
 
-                if (unvisited_neighbors.Any())
+                foreach(var cell in grid.EachCell())
                 {
-                    int index = rnd.Next(unvisited_neighbors.Count);
-                    Cell neighbor = unvisited_neighbors[index];
-                    current.Link(neighbor);
-                    current = neighbor;
-                }
-                else
-                {
-                    current = null;
-
-                    foreach(var cell in grid.EachCell())
+                    List<Cell> visited_neighbors = cell.Neighbors.Where(c => c.Links().Any()).ToList();
+                    if (cell.Links().Count == 0 && visited_neighbors.Any())
                     {
-                        List<Cell> visited_neighbors = cell.Neighbors.Where(c => c.Links().Any()).ToList();
-                        if (cell.Links().Count == 0 && visited_neighbors.Any())
-                        {
-                            current = cell;
+                        current = cell;
 
-                            int index = rnd.Next(visited_neighbors.Count());
-                            var neighbor = visited_neighbors[index];
-                            current.Link(neighbor);
-                            break;
-                        }
+                        int index = rnd.Next(visited_neighbors.Count());
+                        var neighbor = visited_neighbors[index];
+                        current.Link(neighbor);
+                        break;
                     }
                 }
             }

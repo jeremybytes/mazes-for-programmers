@@ -1,46 +1,40 @@
 ﻿using MazeGrid;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
-namespace Algorithms
+namespace Algorithms;
+
+public class Sidewinder : IMazeAlgorithm
 {
-    public class Sidewinder : IMazeAlgorithm
+    public void CreateMaze(Grid grid)
     {
-        public void CreateMaze(Grid grid)
+        var rnd = new Random();
+
+        foreach(var cellRow in grid.EachRow())
         {
-            var rnd = new Random();
+            var run = new List<Cell>();
 
-            foreach(var cellRow in grid.EachRow())
+            foreach(var cell in cellRow)
             {
-                var run = new List<Cell>();
+                run.Add(cell);
 
-                foreach(var cell in cellRow)
+                bool atEasternBoundary = (cell.East == null);
+                bool atNorthernBoundary = (cell.North == null);
+
+                bool shouldCloseOut =
+                    atEasternBoundary ||
+                    (!atNorthernBoundary && rnd.Next(2) == 0);
+                   
+                if (shouldCloseOut)
                 {
-                    run.Add(cell);
-
-                    bool atEasternBoundary = (cell.East == null);
-                    bool atNorthernBoundary = (cell.North == null);
-
-                    bool shouldCloseOut =
-                        atEasternBoundary ||
-                        (!atNorthernBoundary && rnd.Next(2) == 0);
-                       
-                    if (shouldCloseOut)
+                    Cell member = run[rnd.Next(run.Count - 1)];
+                    if (member.North != null)
                     {
-                        Cell member = run[rnd.Next(run.Count - 1)];
-                        if (member.North != null)
-                        {
-                            member.Link(member.North);
-                        }
-                        run.Clear();
+                        member.Link(member.North);
                     }
-                    else
-                    {
-                        cell.Link(cell.East);
-                    }
+                    run.Clear();
+                }
+                else
+                {
+                    cell.Link(cell.East!);
                 }
             }
         }

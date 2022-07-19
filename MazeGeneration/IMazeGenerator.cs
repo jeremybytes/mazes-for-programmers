@@ -1,11 +1,10 @@
-﻿using System.Drawing;
+﻿using SixLabors.ImageSharp;
 
-namespace MazeGeneration
+namespace MazeGeneration;
+
+public interface IMazeGenerator
 {
-    public interface IMazeGenerator
-    {
-        void GenerateMaze();
-        Bitmap GetGraphicalMaze(bool includeHeatMap = false);
-        string GetTextMaze(bool includePath = false);
-    }
+    void GenerateMaze();
+    Image GetGraphicalMaze(bool includeHeatMap = false);
+    string GetTextMaze(bool includePath = false);
 }
