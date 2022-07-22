@@ -3,7 +3,6 @@ using MazeGeneration;
 using MazeGrid;
 using SixLabors.ImageSharp;
 using System.Diagnostics;
-using Ninject;
 
 namespace DrawMaze;
 
@@ -11,22 +10,11 @@ class Program
 {
     static void Main(string[] args)
     {
-        // Manual composition
-        //IMazeGenerator generator =
-        //    new ConsoleLoggingDecorator(
-        //        new MazeGenerator(
-        //            new ColorGrid(15, 15),
-        //            new HuntAndKill())
-        //    );
-
-        // Ninject DI container
-        IKernel container = new StandardKernel();
-        container.Bind<Grid>().ToMethod(c => new ColorGrid(50, 50));
-        container.Bind<IMazeAlgorithm>().To<HuntAndKill>();
-        container.Bind<IMazeGenerator>().To<ConsoleLoggingDecorator>()
-            .WithConstructorArgument<IMazeGenerator>(container.Get<MazeGenerator>());
-
-        IMazeGenerator generator = container.Get<IMazeGenerator>();
+        IMazeGenerator generator =
+            new MazeGenerator(
+                new ColorGrid(15, 15),
+                new HuntAndKill()
+            );
 
         CreateAndShowMaze(generator);
         Console.ReadLine();

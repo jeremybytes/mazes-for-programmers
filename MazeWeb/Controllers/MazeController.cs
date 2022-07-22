@@ -9,7 +9,7 @@ namespace maze_web.Controllers;
 
 public class MazeController : Controller
 {
-    private readonly ILogger<MazeController> _logger;
+    private readonly ILogger<MazeController>? _logger;
 
     public MazeController(ILogger<MazeController> logger)
     {
@@ -27,7 +27,7 @@ public class MazeController : Controller
         return File(byteArray, "image/png");
     }
 
-    public int GetSize(int size)
+    private int GetSize(int size)
     {
         int mazeSize = 15;
         if (size > 0)
@@ -37,42 +37,49 @@ public class MazeController : Controller
         return mazeSize;
     }
 
-    public IMazeAlgorithm GetAlgorithm(string algo)
+    private IMazeAlgorithm GetAlgorithm(string algo)
     {
         IMazeAlgorithm? algorithm = new RecursiveBacktracker();
         if (!string.IsNullOrEmpty(algo))
         {
             Assembly? assembly = Assembly.GetAssembly(typeof(RecursiveBacktracker));
             Type? algoType = assembly?.GetType($"maze_library.{algo}", false, true);
-            if (algoType != null)
+            if (algoType is not null)
             {
+                // If we can get the type from the Algorithms assembly,
+                // then CreateInstance should not return null.
                 algorithm = Activator.CreateInstance(algoType) as IMazeAlgorithm;
             }
         }
         return algorithm!;
     }
 
-    public Image Generate(int mazeSize, IMazeAlgorithm algorithm, MazeColor color)
+    private Image Generate(int mazeSize, IMazeAlgorithm algorithm, MazeColor color)
     {
         IMazeGenerator generator =
             new MazeGenerator(
                 new ColorGrid(mazeSize, mazeSize, color),
                 algorithm);
 
-        _logger.LogDebug($"{DateTime.Now:G} - Starting maze generation");
+        Log("Starting maze generation");
         generator.GenerateMaze();
-        _logger.LogDebug($"{DateTime.Now:G} - Ending maze generation");
+        Log("Ending maze generation");
 
-        _logger.LogDebug($"{DateTime.Now:G} - Starting image generation");
+        Log("Starting image generation");
         Image maze = generator.GetGraphicalMaze(true);
-        _logger.LogDebug($"{DateTime.Now:G} - Ending image generation");
+        Log("Ending image generation");
         return maze;
     }
 
-    public static byte[] ConvertToByteArray(Image img)
+    private static byte[] ConvertToByteArray(Image img)
     {
         using var stream = new MemoryStream();
         img.SaveAsPng(stream);
         return stream.ToArray();
+    }
+
+    private void Log(string message)
+    {
+        _logger?.LogDebug($"{DateTime.Now:G} - {message}");
     }
 }
