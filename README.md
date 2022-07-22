@@ -27,3 +27,5 @@ Building the Mazes:
 Web Application:
 * [Generating Mazes in a Browser](https://jeremybytes.blogspot.com/2020/01/generating-mazes-in-browser.html)  
 * [Building a Web Front-End to Show Mazes in ASP.NET Core MVC](https://jeremybytes.blogspot.com/2020/01/building-web-front-end-to-show-mazes-in.html)
+* Video Walkthrough: [CONDG Jan 2021 - ASP.NET MVC for Absolute Beginners](https://www.youtube.com/watch?v=dU1yyLPu2BE)  
+*Note: If you've seen the "conventions" part of the presentation, you can start at 52:00 to see the MazeWeb part.*
