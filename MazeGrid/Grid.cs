@@ -143,7 +143,7 @@ public abstract class Grid
         int imgWidth = cellSize * Columns;
         int imgHeight = cellSize * Rows;
 
-        IPen wall = Pens.Solid(Color.Black, 1);
+        Pen wall = Pens.Solid(Color.Black, 1);
 
         Image<Rgba32> mazeImage = new(imgWidth, imgHeight);
 
@@ -173,13 +173,13 @@ public abstract class Grid
 
 
             if (cell.North == null)
-                mazeImage.Mutate(x => x.DrawLines(wall, new Point(x1, y1), new Point(x2, y1)));
+                mazeImage.Mutate(x => x.DrawPolygon(wall, new Point(x1, y1), new Point(x2, y1)));
             if (cell.West == null)
-                mazeImage.Mutate(x => x.DrawLines(wall, new Point(x1, y1), new Point(x1, y2)));
+                mazeImage.Mutate(x => x.DrawPolygon(wall, new Point(x1, y1), new Point(x1, y2)));
             if (!cell.IsLinked(cell.East))
-                mazeImage.Mutate(x => x.DrawLines(wall, new Point(x2, y1), new Point(x2, y2)));
+                mazeImage.Mutate(x => x.DrawPolygon(wall, new Point(x2, y1), new Point(x2, y2)));
             if (!cell.IsLinked(cell.South))
-                mazeImage.Mutate(x => x.DrawLines(wall, new Point(x1, y2), new Point(x2, y2)));
+                mazeImage.Mutate(x => x.DrawPolygon(wall, new Point(x1, y2), new Point(x2, y2)));
         }
 
         return mazeImage;
