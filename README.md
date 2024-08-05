@@ -1,17 +1,20 @@
 # mazes-for-programmers
-Coding along with "Mazes for Programmers" by Jamis Buck
+Coding along with "Mazes for Programmers" by ~~Jamis Buck~~
 
 Updates:  
-**July 2022**   
-* Upgraded code to .NET 6.0.  
-* Changed from using System.Drawing to ImageSharp package. This takes care of the cross-platform issues noted below (GDI+ is no longer required (which is good because GDI+ is not supported in .NET 6 for non-Windows platforms).)  
-* Addes scaling for output images. Smaller grids have larger cells; larger grids have smaller cells. This makes the image generation faster for larger grids.
+**August 2024**
+* Upgraded code to .NET 8.0.
+
+**July 2022**
+* Upgraded code to .NET 6.0.
+* Changed from using System.Drawing to ImageSharp package. This takes care of the cross-platform issues noted below (GDI+ is no longer required (which is good because GDI+ is not supported in .NET 6 for non-Windows platforms).)
+* Adds scaling for output images. Smaller grids have larger cells; larger grids have smaller cells. This makes the image generation faster for larger grids.
 
 **Jan 2020**: 
 * Moved code to .NET Core and added a web interface. 
 * Running the "MazeWeb" project provides a parameterized way to generate mazes. Graphical mazes are shown in the browser.
 
-**Cross-Platform Note**:  
+~~**Cross-Platform Note**:~~  
 ~~This project uses GDI+. If you're running on macOS or Linux and you get a GDI+ error, just follow the advice in this article: [SOLVED: System.Drawing .NETCore on Mac, GDIPlus Exception](https://medium.com/@hudsonmendes/solved-system-drawing-netcore-on-mac-gdiplus-exception-c455ab3655a2)~~  
 
 **Articles**  
