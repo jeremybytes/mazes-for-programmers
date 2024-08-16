@@ -1,17 +1,17 @@
-﻿
+
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.30114.105
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Algorithms", "Algorithms\Algorithms.csproj", "{96A047A8-4AD0-44D7-9A70-2792ED073FA7}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Algorithms", "Algorithms\Algorithms.csproj", "{96A047A8-4AD0-44D7-9A70-2792ED073FA7}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DrawMaze", "DrawMaze\DrawMaze.csproj", "{93B7827F-240D-4815-A447-F96A190FCA0B}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DrawMaze", "DrawMaze\DrawMaze.csproj", "{93B7827F-240D-4815-A447-F96A190FCA0B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MazeGeneration", "MazeGeneration\MazeGeneration.csproj", "{9338EF70-7200-462B-88A8-022A0A564099}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MazeGeneration", "MazeGeneration\MazeGeneration.csproj", "{9338EF70-7200-462B-88A8-022A0A564099}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MazeGrid", "MazeGrid\MazeGrid.csproj", "{7319442C-2C5B-4698-B2DD-DBCFC166C43F}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MazeGrid", "MazeGrid\MazeGrid.csproj", "{7319442C-2C5B-4698-B2DD-DBCFC166C43F}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MazeWeb", "MazeWeb\MazeWeb.csproj", "{A8045066-1F1C-4783-A487-C72416486561}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MazeWeb", "MazeWeb\MazeWeb.csproj", "{A8045066-1F1C-4783-A487-C72416486561}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
